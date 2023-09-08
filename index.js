@@ -16,7 +16,8 @@ try {
 
 // Clipboard
 try {
-  addToTestResults(`Clipboard => ${window.navigator.clipboard}`);
+  const clipboardItems = await window.navigator.clipboard.read();
+  addToTestResults(`Clipboard => ${clipboardItems}`);
 } catch (err) {
   addToTestResults(`Clipboard => Error: ${err}`);
 }
