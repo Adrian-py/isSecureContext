@@ -1,12 +1,12 @@
-let testResults = `Browser is Secure Context: ${window.isSecureContext}\n`;
+let testResults = "";
 
 const addToTestResults = (string) => {
   document.getElementById("secure-context").innerText =
     document.getElementById("secure-context").innerText + string + "\n\n";
 };
 
-addToTestResults("Secure Context Only Features");
-addToTestResults("=======================================");
+addToTestResults(`Secure Context => ${window.isSecureContext}`);
+
 // Credentials
 try {
   addToTestResults(`Credentials => ${window.navigator.credentials}`);
@@ -29,21 +29,6 @@ try {
   addToTestResults(`Notification => Error: ${err}`);
 }
 
-// Geolocation
-try {
-  const geolocationCallback = async (geolocation) => {
-    addToTestResults(`Geolocation => ${geolocation.coords}`);
-  };
-
-  addToTestResults(
-    `Geolocation => ${await window.navigator.geolocation.getCurrentPosition(
-      geolocationCallback
-    )}`
-  );
-} catch (err) {
-  addToTestResults(`Geolocation => Error: ${err}`);
-}
-
 // Web Share API
 try {
   const sharableData = {
@@ -55,7 +40,17 @@ try {
   addToTestResults(`Web Share => Error: ${err}`);
 }
 
-addToTestResults(
-  `Current Browser Context is Secure => ${window.isSecureContext}`
-);
-// document.getElementById("secure-context").innerText = testResults;
+// Geolocation
+try {
+  let geoLocationResults;
+  const geolocationCallback = async (geolocation) => {
+    geoLocationResults = geolocation.coords;
+    addToTestResults(`Geolocation => ${geoLocationResults}`);
+  };
+  window.navigator.geolocation.getCurrentPosition(geolocationCallback);
+  addToTestResults(
+    "Geolocation \n(should showup after location permission granted)"
+  );
+} catch (err) {
+  addToTestResults(`Geolocation => Error: ${err}`);
+}
