@@ -5,29 +5,26 @@ const addToTestResults = (string) => {
     document.getElementById("secure-context").innerText + string + "\n\n";
 };
 
-addToTestResults(`Secure Context => ${window.isSecureContext}`);
-
 // Credentials
 try {
-  addToTestResults(`Credentials => ${window.navigator.credentials}`);
+  addToTestResults(`Credentials => ${window.navigator.credentials.create}`);
 } catch (err) {
   addToTestResults(`Credentials => Error: ${err}`);
 }
 
 // Clipboard
 try {
-  const clipboardItems = await window.navigator.clipboard.read();
+  const clipboardItems = await window.navigator.clipboard.readText();
   addToTestResults(`Clipboard => ${clipboardItems}`);
 } catch (err) {
   addToTestResults(`Clipboard => Error: ${err}`);
 }
 
-// Notification
+// Storage
 try {
-  const notification = new Notification("test");
-  addToTestResults(`Notification => ${notification}`);
+  addToTestResults(`Storage => ${window.navigator.storage}`);
 } catch (err) {
-  addToTestResults(`Notification => Error: ${err}`);
+  addToTestResults(`Storage => Error: ${err}`);
 }
 
 // Web Share API
