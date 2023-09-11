@@ -25,7 +25,9 @@ addToTestResults("Storage", 0);
 try {
   localStorage.setItem("item_key", "local_storage_value");
   addToTestResults(
-    `Retrieved from local storage: <i>${localStorage.getItem("item_key")}</i>`
+    `Retrieved from local storage: <i>${window.localStorage.getItem(
+      "item_key"
+    )}</i>`
   );
 } catch (err) {
   addToTestResults(`Error: ${err}`);
