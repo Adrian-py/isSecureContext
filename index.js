@@ -136,7 +136,4 @@ await navigator.credentials
   })
   .catch((err) => {
     addToTestResults(`Error: ${err}`);
-  })
-  .finally(() => {
-    addToTestResults(`Unable to get credentials`);
   });
