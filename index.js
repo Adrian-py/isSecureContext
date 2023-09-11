@@ -1,12 +1,18 @@
 let testResults = "";
 
-const addToTestResults = (string) => {
-  document.getElementById("secure-context").innerText =
-    document.getElementById("secure-context").innerText + string + "\n\n";
+const addToTestResults = (string, type = 1) => {
+  let textInput = string + "<br>";
+
+  if (type == 0) {
+    textInput = `<br><b>${textInput}</b>`;
+  }
+
+  document.getElementById("secure-context").innerHTML =
+    document.getElementById("secure-context").innerHTML + textInput;
 };
 
 // Credentials
-addToTestResults(`Credentials should show up after create credentials`);
+addToTestResults("Credentials", 0);
 var createCredentialDefaultArgs = {
   publicKey: {
     // Relying Party (a.k.a. - Service):
@@ -56,7 +62,7 @@ var getCredentialDefaultArgs = {
 };
 
 // register / create a new credential
-navigator.credentials
+await navigator.credentials
   .create(createCredentialDefaultArgs)
   .then((cred) => {
     console.log("NEW CREDENTIAL", cred);
@@ -74,49 +80,61 @@ navigator.credentials
     return navigator.credentials.get(getCredentialDefaultArgs);
   })
   .then((assertion) => {
-    addToTestResults(`Credentials => ${window.navigator.credentials.create}`);
+    addToTestResults(`${window.navigator.credentials.create}`);
   })
   .catch((err) => {
-    addToTestResults(`Credentials => Error: ${err}`);
+    addToTestResults(`Error: ${err}`);
+  })
+  .finally(() => {
+    addToTestResults(`Unable to get credentials`);
   });
 
 // Clipboard
+addToTestResults("Clipboard", 0);
 try {
   const clipboardItems = await window.navigator.clipboard.readText();
-  addToTestResults(`Clipboard => ${clipboardItems}`);
+  addToTestResults(`${clipboardItems}`);
 } catch (err) {
-  addToTestResults(`Clipboard => Error: ${err}`);
+  addToTestResults(`Error: ${err}`);
 }
 
 // Storage
+addToTestResults("Storage", 0);
 try {
-  addToTestResults(`Storage => ${window.navigator.storage}`);
+  localStorage.setItem("item_key", "local_storage_value");
+  addToTestResults(
+    `Retrieved from local storage: <i>${localStorage.getItem("item_key")}</i>`
+  );
 } catch (err) {
-  addToTestResults(`Storage => Error: ${err}`);
+  addToTestResults(`Error: ${err}`);
 }
 
 // Web Share API
+addToTestResults("Web Share", 0);
 try {
   const sharableData = {
     title: "youtube",
     url: "https://youtube.com",
   };
-  addToTestResults(`Web Share => ${window.navigator.canShare(sharableData)}`);
+  addToTestResults(
+    `Can Share Method: <i>${window.navigator.canShare(sharableData)}</i>`
+  );
 } catch (err) {
-  addToTestResults(`Web Share => Error: ${err}`);
+  addToTestResults(`Error: ${err}`);
 }
 
 // Geolocation
+addToTestResults("Geolocation", 0);
 try {
-  let geoLocationResults;
-  const geolocationCallback = async (geolocation) => {
-    geoLocationResults = geolocation.coords;
-    addToTestResults(`Geolocation => ${geoLocationResults}`);
+  const getLocation = async () => {
+    const location = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+
+    return location;
   };
-  window.navigator.geolocation.getCurrentPosition(geolocationCallback);
-  addToTestResults(
-    "Geolocation \n(should showup after location permission granted)"
-  );
+
+  addToTestResults(`Current Location: ${await getLocation()}`);
 } catch (err) {
-  addToTestResults(`Geolocation => Error: ${err}`);
+  addToTestResults(`Error: ${err}`);
 }
