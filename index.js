@@ -11,6 +11,56 @@ const addToTestResults = (string, type = 1) => {
     document.getElementById("secure-context").innerHTML + textInput;
 };
 
+// Clipboard
+addToTestResults("Clipboard", 0);
+try {
+  const clipboardItems = await window.navigator.clipboard.readText();
+  addToTestResults(`<b>Items you recently copied</b>: <br>${clipboardItems}`);
+} catch (err) {
+  addToTestResults(`Error: ${err}`);
+}
+
+// Storage
+addToTestResults("Storage", 0);
+try {
+  localStorage.setItem("item_key", "local_storage_value");
+  addToTestResults(
+    `Retrieved from local storage: <i>${localStorage.getItem("item_key")}</i>`
+  );
+} catch (err) {
+  addToTestResults(`Error: ${err}`);
+}
+
+// Web Share API
+addToTestResults("Web Share", 0);
+try {
+  const sharableData = {
+    title: "youtube",
+    url: "https://youtube.com",
+  };
+  addToTestResults(
+    `Can Share Method: <i>${window.navigator.canShare(sharableData)}</i>`
+  );
+} catch (err) {
+  addToTestResults(`Error: ${err}`);
+}
+
+// Geolocation
+addToTestResults("Geolocation", 0);
+try {
+  const getLocation = async () => {
+    const location = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
+
+    return location;
+  };
+
+  addToTestResults(`Current Location: ${await getLocation()}`);
+} catch (err) {
+  addToTestResults(`Error: ${err}`);
+}
+
 // Credentials
 addToTestResults("Credentials", 0);
 var createCredentialDefaultArgs = {
@@ -88,53 +138,3 @@ await navigator.credentials
   .finally(() => {
     addToTestResults(`Unable to get credentials`);
   });
-
-// Clipboard
-addToTestResults("Clipboard", 0);
-try {
-  const clipboardItems = await window.navigator.clipboard.readText();
-  addToTestResults(`${clipboardItems}`);
-} catch (err) {
-  addToTestResults(`Error: ${err}`);
-}
-
-// Storage
-addToTestResults("Storage", 0);
-try {
-  localStorage.setItem("item_key", "local_storage_value");
-  addToTestResults(
-    `Retrieved from local storage: <i>${localStorage.getItem("item_key")}</i>`
-  );
-} catch (err) {
-  addToTestResults(`Error: ${err}`);
-}
-
-// Web Share API
-addToTestResults("Web Share", 0);
-try {
-  const sharableData = {
-    title: "youtube",
-    url: "https://youtube.com",
-  };
-  addToTestResults(
-    `Can Share Method: <i>${window.navigator.canShare(sharableData)}</i>`
-  );
-} catch (err) {
-  addToTestResults(`Error: ${err}`);
-}
-
-// Geolocation
-addToTestResults("Geolocation", 0);
-try {
-  const getLocation = async () => {
-    const location = await new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition(resolve, reject);
-    });
-
-    return location;
-  };
-
-  addToTestResults(`Current Location: ${await getLocation()}`);
-} catch (err) {
-  addToTestResults(`Error: ${err}`);
-}
