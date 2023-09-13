@@ -79,7 +79,7 @@ var createCredentialDefaultArgs = {
     pubKeyCredParams: [
       {
         type: "public-key",
-        alg: -7,
+        alg: -257,
       },
     ],
 
