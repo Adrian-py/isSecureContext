@@ -84,7 +84,7 @@ var createCredentialDefaultArgs = {
     ],
 
     authenticatorSelection: {
-      authenticatorAttachment: "cross-platform",
+      authenticatorAttachment: "platform",
     },
 
     attestation: "direct",
