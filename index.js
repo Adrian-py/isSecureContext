@@ -67,16 +67,13 @@ try {
 addToTestResults("Credentials", 0);
 var createCredentialDefaultArgs = {
   publicKey: {
-    // Relying Party (a.k.a. - Service):
     rp: {
-      name: "Acme",
+      name: "Adrian",
     },
-
-    // User:
     user: {
       id: new Uint8Array(16),
-      name: "john.p.smith@example.com",
-      displayName: "John P. Smith",
+      name: "adrianhr0312@gmail.com",
+      displayName: "Adrian Hartanto",
     },
 
     pubKeyCredParams: [
@@ -119,12 +116,10 @@ await navigator.credentials
   .then((cred) => {
     console.log("NEW CREDENTIAL", cred);
 
-    // normally the credential IDs available for an account would come from a server
-    // but we can just copy them from above...
     var idList = [
       {
         id: cred.rawId,
-        transports: ["usb", "nfc", "ble"],
+        transports: ["ble"],
         type: "public-key",
       },
     ];
