@@ -79,12 +79,12 @@ var createCredentialDefaultArgs = {
     pubKeyCredParams: [
       {
         type: "public-key",
-        alg: -7,
+        alg: -257,
       },
     ],
 
     authenticatorSelection: {
-      authenticatorAttachment: "platform",
+      authenticatorAttachment: "cross-platform",
     },
 
     attestation: "direct",
