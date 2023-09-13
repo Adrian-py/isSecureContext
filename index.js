@@ -11,6 +11,16 @@ const addToTestResults = (string, type = 1) => {
     document.getElementById("secure-context").innerHTML + textInput;
 };
 
+// Device Orientation / Motion
+addToTestResults("Device Orientation", 0);
+try {
+  if (window.DeviceOrientationEvent) {
+    addToTestResults("Browser supports device orientation/motion API");
+  }
+} catch (err) {
+  addToTestResults("Error: " + err);
+}
+
 // Clipboard
 addToTestResults("Clipboard", 0);
 try {
