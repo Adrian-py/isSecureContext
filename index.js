@@ -74,28 +74,26 @@ try {
 }
 
 // Credentials
-addToTestResults("Credentials", 0);
 var createCredentialDefaultArgs = {
   publicKey: {
+    // Relying Party (a.k.a. - Service):
     rp: {
-      name: "Adrian",
+      name: "Acme",
     },
+
+    // User:
     user: {
       id: new Uint8Array(16),
-      name: "adrianhr0312@gmail.com",
-      displayName: "Adrian Hartanto",
+      name: "john.p.smith@example.com",
+      displayName: "John P. Smith",
     },
 
     pubKeyCredParams: [
       {
         type: "public-key",
-        alg: -257,
+        alg: -7,
       },
     ],
-
-    authenticatorSelection: {
-      authenticatorAttachment: "cross-platform",
-    },
 
     attestation: "direct",
 
