@@ -140,7 +140,7 @@ await navigator.credentials
     return navigator.credentials.get(getCredentialDefaultArgs);
   })
   .then((assertion) => {
-    addToTestResults(`${window.navigator.credentials.create}`);
+    addToTestResults(`Credentials: ${assertion}`);
   })
   .catch((err) => {
     addToTestResults(`Error: ${err}`);
