@@ -74,6 +74,7 @@ try {
 }
 
 // Credentials
+addToTestResults("Credentials", 0);
 var createCredentialDefaultArgs = {
   publicKey: {
     // Relying Party (a.k.a. - Service):
